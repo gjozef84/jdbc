@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class zad7 {
     public static void main(String[] args) {
+
         String urlDram = "jdbc:mysql://dram.pl:3306/sda_jdbc?user=sda_academy&password=KrzysiuKrawczyk&useLegacyDatetimeCode=false&serverTimezone=UTC";
         String query = "SELECT * FROM zad6_student";
 
