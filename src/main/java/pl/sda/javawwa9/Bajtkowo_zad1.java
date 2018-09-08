@@ -52,7 +52,7 @@ public class Bajtkowo_zad1 extends zad7 {
     }
 
     private static void showChildDetailsGivenPesel(Connection connection, String pesel) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.Nazwa_przedszkola, d.Imie, d.Nazwisko FROM zad1_dzieci AS d, zad1_przedszkola AS p WHERE Pesel=?")) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.Nazwa_przedszkola, d.Imie, d.Nazwisko FROM zad1_dzieci AS d, zad1_przedszkola AS p WHERE d.Id_przedszkola=p.Id_przedszkola AND Pesel=?")) {
             String ppesel = "p" + pesel;
             preparedStatement.setString(1, ppesel);
 
@@ -60,9 +60,9 @@ public class Bajtkowo_zad1 extends zad7 {
 
             if (resultSet.next()) {
                 System.out.println("Dane dziecka o PESELU " + pesel);
-                System.out.println(resultSet.getString("Imie") + " " + resultSet.getString("Nazwisko"));
+                System.out.print(resultSet.getString("Imie") + " " + resultSet.getString("Nazwisko"));
                 resultSet.beforeFirst();
-                System.out.println("\nZostał przyjęty do poniższych przedszkoli: ");
+                System.out.println("został przyjęty do poniższych przedszkoli: ");
 
                 while (resultSet.next()) {
                     System.out.println(resultSet.getString("Nazwa_przedszkola"));

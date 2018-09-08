@@ -10,7 +10,7 @@ public class zad6 {
         String avgAgeQuery = "SELECT AVG(age) AS srednia_wieku FROM pracownik;";
 
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:MojaBazaSQLite.sqlite");
-             Statement statement = connection.createStatement()) {
+              Statement statement = connection.createStatement()) {
 
             System.out.print("Srednia wieku pracowników: ");
             System.out.print(getAverage(connection, avgAgeQuery));
