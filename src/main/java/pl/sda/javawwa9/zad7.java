@@ -1,11 +1,14 @@
 package pl.sda.javawwa9;
 
+import lombok.AllArgsConstructor;
+
 import java.sql.*;
 import java.util.ArrayList;
 
 /**
  * Created by Grzesiek on 2018-09-01
  */
+@AllArgsConstructor
 public class zad7 {
     public static void main(String[] args) {
 
@@ -14,19 +17,50 @@ public class zad7 {
 
         try (Connection connection = DriverManager.getConnection(urlDram)) {
 
-            System.out.println("Nazwy pól w tabeli zad6_student\n" + getTableLabel(connection, query));
-            System.out.println("\nTypy pól w tabeli zad6_student\n" + getColumnTypeInTable(connection, query));
-            System.out.println("\nLista imion występujących w tabeli zad6_student\n" + getUniqFieldWithGivenTable(connection, "zad6_student", "name"));
-            System.out.println("\nLiczba osób urodzonych w województwie Mazowieckim: " + getCountFieldInTable(connection, "birth_state", "zad6_student", "Mazowieckie"));
-            System.out.println("\nLiczba osób o imieniu Jan i wieku 22lata: " + getSimpleQueryWchichReturnInteger(connection, "SELECT COUNT(*) FROM sda_jdbc.zad6_student WHERE name='Jan' AND age=22"));
-            countGoodPeselAndWrongPesel(connection, "zad6_student"); //wypisuje ile osbo ma poprawny pesel a ile nie
+            //System.out.println("Nazwy pól w tabeli zad6_student\n" + getTableLabel(connection, query));
+            //System.out.println("\nTypy pól w tabeli zad6_student\n" + getColumnTypeInTable(connection, query));
+            //System.out.println("\nLista imion występujących w tabeli zad6_student\n" + getUniqFieldWithGivenTable(connection, "zad6_student", "name"));
+            //System.out.println("\nLiczba osób urodzonych w województwie Mazowieckim: " + getCountFieldInTable(connection, "birth_state", "zad6_student", "Mazowieckie"));
+            //System.out.println("\nLiczba osób o imieniu Jan i wieku 22lata: " + getSimpleQueryWchichReturnInteger(connection, "SELECT COUNT(*) FROM sda_jdbc.zad6_student WHERE name='Jan' AND age=22"));
+            //correctPeselCount(connection, "zad6_student"); //wypisuje ile osbo ma poprawny pesel a ile nie
+            studentCountAndAcademy(connection);
+            studentMaxAgeMinAgeAndAVG(connection);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private static void countGoodPeselAndWrongPesel(Connection connection, String tableName) {
+    private static void studentMaxAgeMinAgeAndAVG(Connection connection) {
+        String query = "SELECT a.name, MIN(s.age), MAX(s.age), AVG(s.age) FROM zad6_student AS s, zad6_academy AS a WHERE a.id=s.academy_id GROUP BY a.name";
+        try (Statement statement = connection.createStatement()){
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()){
+                System.out.println(resultSet.getString("name")+" "+resultSet.getInt(2)+" "+resultSet.getInt(3)+" "+resultSet.getFloat(4));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void studentCountAndAcademy(Connection connection) {
+        String query = "SELECT zad6_academy.name, COUNT(student.id) AS count\n" +
+                "FROM zad6_academy\n" +
+                "       JOIN zad6_student student on zad6_academy.id = student.academy_id\n" +
+                "GROUP BY zad6_academy.id;";
+        try (Statement statement = connection.createStatement()){
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()){
+                System.out.println(resultSet.getString("name")+" "+resultSet.getInt("count"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void correctPeselCount(Connection connection, String tableName) {
         try (Statement statement = connection.createStatement()) {
 
             ResultSet resultSet = statement.executeQuery("SELECT pesel FROM " + tableName);
@@ -45,7 +79,9 @@ public class zad7 {
         }
     }
 
-    private static boolean verifyPesel(String pesel) {
+    public static boolean verifyPesel(String pesel) {
+        if (pesel.isEmpty() || pesel.length()!=11) return false;
+
         String[] p = pesel.split("");
 
         int sum = 9 * Integer.parseInt(p[0])
@@ -62,7 +98,7 @@ public class zad7 {
         return (Integer.parseInt(p[10]) == sum % (sum / 10)) ? true : false;
     }
 
-    private static int getSimpleQueryWchichReturnInteger(Connection connection, String query) {
+    public static int getSimpleQueryWchichReturnInteger(Connection connection, String query) {
         try (Statement statement = connection.createStatement()) {
 
             ResultSet resultSet = statement.executeQuery(query);
@@ -77,7 +113,7 @@ public class zad7 {
         return 0;
     }
 
-    private static int getCountFieldInTable(Connection connection, String field_name, String table_name, String searchValue) {
+    public static int getCountFieldInTable(Connection connection, String field_name, String table_name, String searchValue) {
         try (Statement statement = connection.createStatement()) {
 
             String query = "SELECT COUNT(*) FROM " + table_name + " WHERE " + field_name + "=\"" + searchValue + "\"";
