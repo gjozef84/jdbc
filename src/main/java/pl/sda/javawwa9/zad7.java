@@ -1,14 +1,12 @@
 package pl.sda.javawwa9;
 
-import lombok.AllArgsConstructor;
-
 import java.sql.*;
 import java.util.ArrayList;
 
 /**
  * Created by Grzesiek on 2018-09-01
  */
-@AllArgsConstructor
+
 public class zad7 {
     public static void main(String[] args) {
 
