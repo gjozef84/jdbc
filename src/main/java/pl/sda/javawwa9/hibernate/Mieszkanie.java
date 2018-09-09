@@ -18,9 +18,9 @@ public class Mieszkanie {
     private String nrDomu;
     private int nrMieszkania;
 
-    /*@OneToOne
+    @OneToOne
     @JoinColumn(name = "osoba_id")
-    private Osoba osoba;*/
+    private Osoba osoba;
 
     public Mieszkanie() {
     }
@@ -30,5 +30,16 @@ public class Mieszkanie {
         this.ulica = ulica;
         this.nrDomu = nrDomu;
         this.nrMieszkania = nrMieszkania;
+    }
+
+    @Override
+    public String toString() {
+        return "Mieszkanie{" +
+                "id=" + id +
+                ", miasto='" + miasto + '\'' +
+                ", ulica='" + ulica + '\'' +
+                ", nrDomu='" + nrDomu + '\'' +
+                ", nrMieszkania=" + nrMieszkania +
+                '}';
     }
 }

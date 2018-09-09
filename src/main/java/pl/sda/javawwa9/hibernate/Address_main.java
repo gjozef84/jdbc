@@ -35,3 +35,11 @@ public class Address_main {
 
     }
 }
+
+/*Powiąż klasę Osoba i Mieszkanie relacją 1-1.
+
+        a)    Dodaj 5 osób, jedna osoba jest bez mieszkania
+        b)    Przejdź po każdej osobie wyświetlając wszystko co o niej wiesz (wraz z danymi z mieszkania)
+        c)    Udostępnij taką funkcjonalność: Użytkownik podaje id osoby, Ty zwrócisz i wyświetlisz mu wszystko co wiesz o tej osobie
+        d)    Udostępnij taką funkcjonalność: Użytkownik chce dodać osobę (scannerem), wypytaj go o wszystkie dane wraz z jego mieszkaniem, a następnie dodaj użytkownika do bazy
+        e)    Wyszukaj użytkowników z wybranego miasta*/

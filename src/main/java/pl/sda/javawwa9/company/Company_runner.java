@@ -11,7 +11,6 @@ import java.util.List;
 
 public class Company_runner {
     public static void main(String[] args) {
-        EntityManager entityManager = Persistence.createEntityManagerFactory("sqlite").createEntityManager();
 
         Company sda = new Company("SDA", 500000);
         Company flesz = new Company("Flesz", 350000);
@@ -27,8 +26,6 @@ public class Company_runner {
         Adress adr4 = new Adress("Wolska", 15, "02-008", "Warszawa");
         Adress adr5 = new Adress("Cieslewskich", 25, "03-017", "Warszawa");
         Adress adr6 = new Adress("Gdanska", 5, "00-001", "Gdansk");
-
-        entityManager.getTransaction().begin();
 
         List<Employee> employesSDAList = new ArrayList<>();
         employesSDAList.add(emp2);
@@ -57,12 +54,27 @@ public class Company_runner {
         emp2.setCompany(sda);
         emp3.setCompany(sda);
 
+        EntityManager entityManager = Persistence.createEntityManagerFactory("sqlite").createEntityManager();
+
         entityManager.persist(sda);
         entityManager.persist(flesz);
 
+        entityManager.getTransaction().begin();
+
         entityManager.getTransaction().commit();
+
+        Company company = entityManager.find(Company.class, (long)1);
+        System.out.println(company);
 
         entityManager.getEntityManagerFactory().close();
         entityManager.close();
     }
 }
+
+    /*Powiąż klasę Osoba i Mieszkanie relacją 1-1.
+
+        a)    Dodaj 5 osób, jedna osoba jest bez mieszkania
+        b)    Przejdź po każdej osobie wyświetlając wszystko co o niej wiesz (wraz z danymi z mieszkania)
+        c)    Udostępnij taką funkcjonalność: Użytkownik podaje id osoby, Ty zwrócisz i wyświetlisz mu wszystko co wiesz o tej osobie
+        d)    Udostępnij taką funkcjonalność: Użytkownik chce dodać osobę (scannerem), wypytaj go o wszystkie dane wraz z jego mieszkaniem, a następnie dodaj użytkownika do bazy
+        e)    Wyszukaj użytkowników z wybranego miasta*/
