@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 /**
  * Created by Grzesiek on 2018-09-08
  */
-public class Address_main {
+/*public class Address_main {
     public static void main(String[] args) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("sqlite");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -34,7 +34,7 @@ public class Address_main {
         entityManagerFactory.close();
 
     }
-}
+}*/
 
 /*Powiąż klasę Osoba i Mieszkanie relacją 1-1.
 

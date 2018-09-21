@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Grzesiek on 2018-09-08
  */
 
-@Entity
+/*@Entity
 public class Address {
 
     @Id
@@ -33,4 +33,4 @@ public class Address {
         this.zipCode = zipCode;
         this.p = p;
     }
-}
+}*/

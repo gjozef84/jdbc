@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 /**
  * Created by Grzesiek on 2018-09-08
  */
-public class Mieszkanie_main {
+/*public class Mieszkanie_main {
     public static void main(String[] args) {
         EntityManager entityManager = Persistence.createEntityManagerFactory("sqlite").createEntityManager();
 
@@ -29,9 +29,9 @@ public class Mieszkanie_main {
         entityManager.persist(o5);
 
         //tego nie trzeba robic bo zajmuje sie tym 'cascade = CascadeType=ALL'
-        /*entityManager.persist(m1);
+        *//*entityManager.persist(m1);
         entityManager.persist(m2);
-        entityManager.persist(m3);*/
+        entityManager.persist(m3);*//*
 
         entityManager.getTransaction().commit();
 
@@ -39,4 +39,4 @@ public class Mieszkanie_main {
         entityManager.close();
 
     }
-}
+}*/

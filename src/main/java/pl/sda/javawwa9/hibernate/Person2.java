@@ -6,6 +6,7 @@ import javax.persistence.*;
  * Created by Grzesiek on 2018-09-08
  */
 
+/*
 @Entity
 public class Person2 {
 
@@ -42,4 +43,4 @@ public class Person2 {
                 ", address=" + address +
                 '}';
     }
-}
+}*/
